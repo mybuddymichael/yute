@@ -1,15 +1,21 @@
-# youtube-transcript-plus-cli
+# yute
 
-To install dependencies:
+Fetch YouTube transcripts from the command line.
 
-```bash
-bun install
-```
-
-To run:
+## Usage
 
 ```bash
-bun run index.ts
+bunx --bun yute <url or video id>
+npx yute <url or video id>
 ```
 
-This project was created using `bun init` in bun v1.2.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## With your LLM agent
+
+Include something like this in your agent prompt:
+
+```
+When asked to fetch summarize a video, use `yute` to get the transcript:
+
+`bunx --bun yute <url or video id>`
+```
+
