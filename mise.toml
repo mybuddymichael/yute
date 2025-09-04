@@ -7,5 +7,15 @@ run = "bun build --target=node --outdir=dist index.ts"
 [tasks.format]
 run = "bun biome format --write ."
 
+[tasks.test]
+run = "bun test"
+
 [tasks.lint]
 run = "bun oxlint"
+
+[tasks.check]
+run = [
+  "mise run format",
+  "mise run lint", 
+  "mise run test"
+]
