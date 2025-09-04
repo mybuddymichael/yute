@@ -19,3 +19,6 @@ When asked to fetch summarize a video, use `yute` to get the transcript:
 `bunx --bun yute <url or video id>`
 ```
 
+## License
+
+[MIT](./LICENSE)
