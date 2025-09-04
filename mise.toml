@@ -15,7 +15,7 @@ run = ["mise run format", "mise run lint", "mise run test"]
 
 [tasks.build]
 depends = ["check"]
-run = "bun build --target=node --outdir=dist index.ts"
+run = "bun build --target=node --outdir=dist index.ts --banner '#!/usr/bin/env node'"
 
 [tasks.release]
 depends = ["check"]
