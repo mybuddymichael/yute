@@ -13,9 +13,8 @@ run = "bun test"
 [tasks.lint]
 run = "bun oxlint"
 
+[tasks.release]
+run = ["bun run ./release.ts"]
+
 [tasks.check]
-run = [
-  "mise run format",
-  "mise run lint", 
-  "mise run test"
-]
+run = ["mise run format", "mise run lint", "mise run test"]
