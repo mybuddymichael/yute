@@ -7,7 +7,7 @@ export function getHelpMessage(): string {
 Usage: yute <youtube-url>
 
 Arguments:
-  <youtube-url>    YouTube URL or video ID to fetch transcript
+  <youtube-url>    YouTube URL or video ID to fetch transcript for
 
 Options:
   -h, --help       Show this help message
