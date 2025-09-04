@@ -1,6 +1,6 @@
 {
 	"name": "yute",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Fetch YouTube transcripts from the command line",
 	"publishConfig": {
 		"access": "public"
