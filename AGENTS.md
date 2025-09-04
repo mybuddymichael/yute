@@ -28,3 +28,7 @@ test("hello world", () => {
   expect(1).toBe(1);
 });
 ```
+
+## Misc
+
+- When done with your changes, run `mise run check`.
