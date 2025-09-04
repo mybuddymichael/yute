@@ -6,3 +6,6 @@ run = "bun build --target=node --outdir=dist index.ts"
 
 [tasks.format]
 run = "bun biome format --write ."
+
+[tasks.lint]
+run = "bun oxlint"
