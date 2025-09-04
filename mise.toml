@@ -1,5 +1,8 @@
 [tools]
 bun = "1.2.21"
 
+[tasks.build]
+run = "bun build --target=node --outdir=dist index.ts"
+
 [tasks.format]
 run = "bun biome format --write ."
