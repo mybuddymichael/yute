@@ -1,2 +1,5 @@
 [tools]
 bun = "1.2.21"
+
+[tasks.format]
+run = "bun biome format --write ."
