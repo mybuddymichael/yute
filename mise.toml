@@ -1,9 +1,6 @@
 [tools]
 bun = "1.2.21"
 
-[tasks.build]
-run = "bun build --target=node --outdir=dist index.ts"
-
 [tasks.format]
 run = "bun biome format --write ."
 
@@ -13,8 +10,17 @@ run = "bun test"
 [tasks.lint]
 run = "bun oxlint"
 
-[tasks.release]
-run = ["bun run ./release.ts"]
-
 [tasks.check]
 run = ["mise run format", "mise run lint", "mise run test"]
+
+[tasks.build]
+depends = ["check"]
+run = "bun build --target=node --outdir=dist index.ts"
+
+[tasks.release]
+depends = ["check"]
+run = ["bun run ./release.ts"]
+
+[tasks.publish]
+depends = ["release"]
+run = ["bun publish"]
