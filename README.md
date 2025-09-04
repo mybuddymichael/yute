@@ -16,7 +16,7 @@ Include something like this in your agent prompt:
 ```
 When asked to fetch summarize a video, use `yute` to get the transcript:
 
-`bunx --bun yute <url or video id>`
+`bunx --bun yute <url or video id> --no-newlines`
 ```
 
 ## License
