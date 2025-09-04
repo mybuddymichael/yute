@@ -1,8 +1,22 @@
 {
-	"name": "youtube-transcript-plus-cli",
-	"module": "index.ts",
+	"name": "yute",
+	"version": "0.1.0",
+	"description": "Fetch YouTube transcripts from the command line",
+	"main": "dist/index.js",
+	"bin": {
+		"yute": "dist/index.js"
+	},
 	"type": "module",
-	"private": true,
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"youtube",
+		"transcript",
+		"cli",
+		"video"
+	],
+	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "2.1.2",
 		"@types/bun": "latest",
