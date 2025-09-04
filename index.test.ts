@@ -28,26 +28,33 @@ test('getHelpMessage returns correct help text', () => {
 	expect(help).toContain('Options:')
 	expect(help).toContain('Examples:')
 	expect(help).toContain('-h, --help')
+	expect(help).toContain('--no-newlines')
 })
 
 test('validateArgs handles help flags', () => {
-	expect(validateArgs(['-h'])).toEqual({ valid: true, showHelp: true })
-	expect(validateArgs(['--help'])).toEqual({ valid: true, showHelp: true })
-	expect(validateArgs(['some-url', '-h'])).toEqual({ valid: true, showHelp: true })
+	expect(validateArgs(['-h'])).toEqual({ valid: true, showHelp: true, noNewlines: false })
+	expect(validateArgs(['--help'])).toEqual({ valid: true, showHelp: true, noNewlines: false })
+	expect(validateArgs(['some-url', '-h'])).toEqual({
+		valid: true,
+		showHelp: true,
+		noNewlines: false,
+	})
 })
 
 test('validateArgs handles no arguments', () => {
 	const result = validateArgs([])
 	expect(result.valid).toBe(false)
 	expect(result.showHelp).toBe(true)
-	expect(result.error).toContain('Please provide exactly one argument')
+	expect(result.noNewlines).toBe(false)
+	expect(result.error).toContain('Please provide a YouTube URL or ID')
 })
 
 test('validateArgs handles too many arguments', () => {
 	const result = validateArgs(['url1', 'url2', 'url3'])
 	expect(result.valid).toBe(false)
 	expect(result.showHelp).toBe(true)
-	expect(result.error).toContain('Please provide exactly one argument')
+	expect(result.noNewlines).toBe(false)
+	expect(result.error).toContain('Please provide a YouTube URL or ID')
 })
 
 test('validateArgs handles valid single argument', () => {
@@ -61,7 +68,22 @@ test('validateArgs handles valid single argument', () => {
 		const result = validateArgs([url])
 		expect(result.valid).toBe(true)
 		expect(result.showHelp).toBe(false)
+		expect(result.noNewlines).toBe(false)
 		expect(result.videoUrl).toBe(url)
 		expect(result.error).toBeUndefined()
 	})
+})
+
+test('validateArgs handles --no-newlines flag', () => {
+	const result = validateArgs(['--no-newlines', 'dQw4w9WgXcQ'])
+	expect(result.valid).toBe(true)
+	expect(result.showHelp).toBe(false)
+	expect(result.noNewlines).toBe(true)
+	expect(result.videoUrl).toBe('dQw4w9WgXcQ')
+
+	const result2 = validateArgs(['dQw4w9WgXcQ', '--no-newlines'])
+	expect(result2.valid).toBe(true)
+	expect(result2.showHelp).toBe(false)
+	expect(result2.noNewlines).toBe(true)
+	expect(result2.videoUrl).toBe('dQw4w9WgXcQ')
 })

@@ -11,11 +11,13 @@ Arguments:
 
 Options:
   -h, --help       Show this help message
+  --no-newlines    Output transcript segments without newlines between them
 
 Examples:
   npx yute https://www.youtube.com/watch?v=dQw4w9WgXcQ
   bunx yute dQw4w9WgXcQ
   yute dQw4w9WgXcQ   # if installed globally
+  yute --no-newlines dQw4w9WgXcQ   # compact output
   `
 }
 
@@ -26,22 +28,27 @@ function showHelp(): void {
 export function validateArgs(args: string[]): {
 	valid: boolean
 	showHelp: boolean
+	noNewlines: boolean
 	error?: string
 	videoUrl?: string
 } {
 	if (args.includes('-h') || args.includes('--help')) {
-		return { valid: true, showHelp: true }
+		return { valid: true, showHelp: true, noNewlines: false }
 	}
 
-	if (args.length !== 1) {
+	const noNewlines = args.includes('--no-newlines')
+	const filteredArgs = args.filter((arg) => arg !== '--no-newlines')
+
+	if (filteredArgs.length !== 1) {
 		return {
 			valid: false,
 			showHelp: true,
-			error: 'Error: Please provide exactly one argument (YouTube URL or ID)',
+			noNewlines: false,
+			error: 'Error: Please provide a YouTube URL or ID',
 		}
 	}
 
-	return { valid: true, showHelp: false, videoUrl: args[0] }
+	return { valid: true, showHelp: false, noNewlines, videoUrl: filteredArgs[0] }
 }
 
 async function main(): Promise<void> {
@@ -57,6 +64,7 @@ async function main(): Promise<void> {
 	}
 
 	const videoUrl = validation.videoUrl!
+	const noNewlines = validation.noNewlines
 
 	try {
 		console.log(`Fetching transcript for: ${videoUrl}`)
@@ -64,10 +72,20 @@ async function main(): Promise<void> {
 
 		console.log('\n--- TRANSCRIPT ---\n')
 
-		transcript.forEach((item) => {
-			const startTime = formatTime(item.offset)
-			console.log(`[${startTime}] ${item.text}`)
-		})
+		if (noNewlines) {
+			const transcriptText = transcript
+				.map((item) => {
+					const startTime = formatTime(item.offset)
+					return `[${startTime}] ${item.text}`
+				})
+				.join(' ')
+			console.log(transcriptText)
+		} else {
+			transcript.forEach((item) => {
+				const startTime = formatTime(item.offset)
+				console.log(`[${startTime}] ${item.text}`)
+			})
+		}
 
 		console.log(`\n--- END TRANSCRIPT ---`)
 		console.log(`Total segments: ${transcript.length}`)
