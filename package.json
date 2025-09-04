@@ -2,6 +2,9 @@
 	"name": "yute",
 	"version": "0.1.0",
 	"description": "Fetch YouTube transcripts from the command line",
+	"publishConfig": {
+		"access": "public"
+	},
 	"main": "dist/index.js",
 	"bin": {
 		"yute": "dist/index.js"
