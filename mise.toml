@@ -22,5 +22,5 @@ depends = ["check"]
 run = ["bun run ./release.ts"]
 
 [tasks.publish]
-depends = ["release"]
+depends = ["check", "release", "build"]
 run = ["bun publish"]
